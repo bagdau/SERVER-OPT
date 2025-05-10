@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>2FA - Security</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h2>Регистрация</h2>
+            <input type="text" placeholder="Ваше ФИО" />
+            <input type="text" placeholder="Ваш адрес" />
+            <input type="text" placeholder="Ваш телефон" />
+            <input type="password" placeholder="Ваш пароль" />
+            <input type="email" placeholder="Ваш Email" />
+            <button>Зарегистрироваться</button>
+        </div>
+
+        <div class="captcha-box">
+            <h2>Подтверждение</h2>
+            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+            <button onclick="verifyCaptcha()">Подтвердить</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h1>2FA - Security</h1>
+        <p>Вы должны пройти в двухфакторной аутентификации</p>
+    </div>
+
+    <script>
+        function verifyCaptcha() {
+            const response = grecaptcha.getResponse();
+            if (!response) {
+                alert("Пожалуйста, подтвердите, что вы не робот.");
+            } else {
+                alert("Успешно подтверждено!");
+                window.location.href = "dashboard.html";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>📄 Secure Documents Dashboard</h1>
+        <input type="text" id="searchInput" placeholder="🔍 Поиск документов..." onkeyup="filterTable()" />
+    </header>
+
+    <main>
+        <table id="documentsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя файла</th>
+                    <th>Категория</th>
+                    <th>Теги</th>
+                    <th>Дата добавления</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Данные загружаются через script.js -->
+            </tbody>
+        </table>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

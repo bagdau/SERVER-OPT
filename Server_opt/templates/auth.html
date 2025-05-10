@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title> Authentication</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <header>
+        <h1> Secure Authentication</h1>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h2>Вход</h2>
+            <input type="text" id="loginUsername" placeholder="Имя пользователя" />
+            <input type="password" id="loginPassword" placeholder="Пароль" />
+            <button onclick="login()">Войти</button>
+
+            <h2>Регистрация</h2>
+            <input type="text" id="registerUsername" placeholder="Имя пользователя" />
+            <input type="password" id="registerPassword" placeholder="Пароль" />
+            <button onclick="register()">Зарегистрироваться</button>
+        </div>
+    </main>
+
+    <script>
+        function login() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            fetch("/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.access_token) {
+                    localStorage.setItem("access_token", data.access_token);
+                    window.location.href = "2fa.html"; // Перенаправляем на двухфакторную страницу
+                } else {
+                    alert("Ошибка входа!");
+                }
+            });
+        }
+
+        function register() {
+            const username = document.getElementById("registerUsername").value;
+            const password = document.getElementById("registerPassword").value;
+
+            fetch("/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => alert(data.message || "Регистрация завершена!"));
+        }
+    </script>
+</body>
+</html>
